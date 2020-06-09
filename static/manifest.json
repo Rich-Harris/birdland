@@ -1,0 +1,15 @@
+{
+	"background_color": "#ffffff",
+	"theme_color": "#333333",
+	"name": "Birdland",
+	"short_name": "Birdland",
+	"display": "minimal-ui",
+	"start_url": "/",
+	"icons": [
+		{
+			"src": "logo.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	]
+}
