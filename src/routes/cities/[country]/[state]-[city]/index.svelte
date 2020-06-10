@@ -1,11 +1,17 @@
 <script context="module">
-	export async function preload({ params }) {
+	export async function preload({ params }, { user }) {
 		const { country, state, city } = params;
 		const res = await this.fetch(`cities/${country}/${state}-${city}.json`);
 
 		if (res.ok) {
 			return {
-				city: await res.json()
+				city: await res.json(),
+				cities: [
+					{ name: 'Brooklyn', qualifier: 'New York, United States', slug: 'us/ny-brooklyn' },
+					{ name: 'London', qualifier: 'England', slug: 'gb/eng-london' },
+					{ name: 'Paris', qualifier: 'France', slug: 'fr/11-paris' }
+				],
+				user
 			};
 		} else {
 			this.error(res.status, await res.text());
@@ -21,6 +27,8 @@
 	import * as yootils from 'yootils';
 
 	export let city;
+	export let cities;
+	export let user;
 
 	let selected;
 
@@ -34,36 +42,61 @@
 	<title>{city.name} • Birdland</title>
 </svelte:head>
 
-<div class="cities">
-	<CitySelector {city}/>
-</div>
+<main>
+	<div class="cities">
+		<CitySelector {city} {cities}/>
+	</div>
 
-<div class="weather">
-	<Today {city}/>
+	<div class="weather">
+		<Today {city}/>
 
-	{#each city.forecast as day}
-		<button
-			id="{day.valid_date}-button"
-			disabled={!process.browser}
-			aria-expanded={selected === day}
-			aria-controls="{day.valid_date}-contents"
-			on:click="{() => selected = (selected === day ? null : day)}"
-		>
-			<Summary {day} expanded={selected === day} {scale}/>
-		</button>
+		{#each city.forecast as day}
+			<button
+				id="{day.valid_date}-button"
+				disabled={!process.browser}
+				aria-expanded={selected === day}
+				aria-controls="{day.valid_date}-contents"
+				on:click="{() => selected = (selected === day ? null : day)}"
+			>
+				<Summary {day} expanded={selected === day} {scale}/>
+			</button>
 
-		{#if selected === day}
-			<Details {day}/>
-		{/if}
-	{/each}
-</div>
+			{#if selected === day}
+				<Details {day}/>
+			{/if}
+		{/each}
+	</div>
+</main>
 
 <style>
+	main {
+		background-color: white;
+	}
+
 	button {
 		display: block;
 		width: 100%;
 		background: none;
 		border: none;
 		border-top: 1px solid rgba(0,0,0,0.2);
+		padding: 0;
+	}
+
+	@media (min-width: 720px) {
+		main {
+			display: grid;
+			grid-template-columns: 60% 40%;
+			max-width: 1080px;
+			margin: 0 auto;
+		}
+
+		.cities {
+			order: 2;
+			border-left: 1px solid rgba(0,0,0,0.2);
+		}
+
+		.weather {
+			order: 1;
+		}
 	}
 </style>

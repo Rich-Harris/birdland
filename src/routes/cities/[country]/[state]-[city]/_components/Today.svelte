@@ -33,7 +33,7 @@
 		background: 50% 50% no-repeat;
 		background-size: contain;
 		padding: 2em 0.5em;
-		box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
+		/* box-shadow: inset 0 2px 6px rgba(0,0,0,0.1); */
 	}
 
 	img {

@@ -1,4 +1,5 @@
 <script>
+	import ExpandToggleIcon from '@components/ExpandToggleIcon.svelte';
 	import { get_color } from './temperature_scale.js';
 
 	export let day;
@@ -25,16 +26,17 @@
 			<span>{Math.round(day.high_temp)}°</span>
 		</div>
 	</div>
-	<img alt="{expanded ? 'close' : 'open'} icon" src="icons/plus.svg" class:expanded>
+
+	<ExpandToggleIcon {expanded}/>
 </div>
 
 <style>
 	.summary {
 		display: flex;
-		background: 0 50% no-repeat;
+		background: 0.5em 50% no-repeat;
 		background-size: 2em 2em;
 		text-align: left;
-		padding: 1em 1em 1em 3em;
+		padding: 1em 1em 1em 3.5em;
 		align-items: center;
 	}
 
@@ -46,6 +48,7 @@
 		position: relative;
 		flex-grow: 1;
 		height: 1em;
+		margin-right: 3em;
 	}
 
 	.temperature-range-inner {
@@ -66,18 +69,5 @@
 
 	.temperature-range-inner span:last-child {
 		left: 100%;
-	}
-
-	img {
-		width: 1.4em;
-		height: 1.4em;
-		transition: transform 0.2s;
-		will-change: transform;
-		margin: 0 0 0 3em;
-		opacity: 0.2;
-	}
-
-	.expanded {
-		transform: rotate(45deg);
 	}
 </style>

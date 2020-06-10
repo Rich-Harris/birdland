@@ -1,18 +1,37 @@
 <script>
 	import * as yootils from 'yootils';
+	import { stores } from '@sapper/app';
+	import ExpandToggleIcon from '@components/ExpandToggleIcon.svelte';
 	import SearchBox from './SearchBox.svelte';
 	import Modal from './Modal.svelte';
 
 	export let city;
+	export let cities;
+
+	const { session } = stores();
 
 	let results;
 	let modal_contents;
+	let show_cities = false;
+
+	const home = e => {
+
+	};
+
+	const save = e => {
+
+	};
+
+	const toggle_cities = e => {
+		if (e.ctrlKey || e.shiftKey || e.metaKey || e.button !== 0) return;
+
+		show_cities = !show_cities;
+		e.preventDefault();
+	};
 
 	const handle_results = e => {
 		q = e.detail.q;
 		results = e.detail.results;
-
-		console.log(window.results = results);
 	};
 
 	const handle_keydown = e => {
@@ -61,18 +80,55 @@
 
 	<SearchBox {q} on:results={handle_results}/>
 
-	<p>{city.qualifier}</p>
+	<p class="qualifier">{city.qualifier}</p>
+
+	{#if $session.user}
+		<div class="controls">
+			<form method={city.is_home ? 'delete' : 'post'} action="api/home?returnTo=/cities/{city.slug}" on:submit|preventDefault={home}>
+				<button style="background-image: url(icons/home-outline.svg)" type="submit">{city.is_home ? 'remove' : 'add'} as home</button>
+			</form>
+
+			<form method={city.is_bookmarked ? 'delete' : 'post'} action="api/save?returnTo=/cities/{city.slug}" on:submit|preventDefault={save}>
+				<button style="background-image: url(icons/bookmark-outline.svg)" type="submit">{city.is_bookmarked ? 'remove from' : 'save to'} my cities</button>
+			</form>
+
+			<a
+				href="my-cities"
+				class:expanded={show_cities}
+				on:click={toggle_cities}
+			>
+				<ExpandToggleIcon expanded={show_cities}/>
+				<span class="offscreen">{show_cities ? 'hide' : 'show'} my cities</span>
+			</a>
+		</div>
+	{:else}
+		<p><a href="login">log in</a> to save cities and preferences</p>
+	{/if}
+
+	<div
+		class="cities"
+		class:always-visible={show_cities}
+	>
+		<ul>
+			{#each cities as city}
+				<li><a href="cities/{city.slug}"><strong>{city.name}</strong>, {city.qualifier}</a></li>
+			{:else}
+				<li>No cities saved yet</li>
+			{/each}
+		</ul>
+	</div>
 </div>
 
 <style>
 	.current {
 		padding: 0.5em;
+		border-bottom: 1px solid rgba(0,0,0,0.2);
 	}
 
-	p {
-		color: #999;
-		margin: 0;
-		padding: 0 3px;
+	.qualifier {
+		text-transform: uppercase;
+		margin: 0 0 0.5em 0;
+		padding: 0 1px;
 	}
 
 	.modal-contents {
@@ -98,5 +154,55 @@
 	li a {
 		display: block;
 		padding: 0.5em;
+	}
+
+	.controls {
+		color: #999;
+		display: grid;
+		grid-template-columns: 1fr 1fr 2em;
+		grid-gap: 0.5em;
+	}
+
+	.controls button {
+		color: inherit;
+		border: none;
+		background: 0 50% no-repeat;
+		padding: 0 0 0 1.7em;
+		background-size: 1.5em 1.5em;
+	}
+
+	.controls a {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.controls .offscreen {
+		display: block;
+		width: 0;
+		height: 0;
+		overflow: hidden;
+	}
+
+	.cities {
+		display: none;
+	}
+
+	.cities.always-visible {
+		display: block;
+	}
+
+	@media (min-width: 720px) {
+		.cities {
+			display: block;
+		}
+
+		.controls {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.controls a {
+			display: none;
+		}
 	}
 </style>

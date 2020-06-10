@@ -24,9 +24,9 @@
 </form>
 
 <style>
-	form {
+	/* form {
 		margin: 0 0 0.5em 0;
-	}
+	} */
 
 	input {
 		width: 100%;
@@ -39,7 +39,7 @@
 		border: none;
 		border-radius: 2px;
 		z-index: 3;
-		background: url(/icons/search.svg) 100% 50% no-repeat;
+		background: white url(/icons/search.svg) 100% 50% no-repeat;
 		background-size: 1em 1em;
 	}
 </style>
