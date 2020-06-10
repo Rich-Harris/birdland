@@ -5,11 +5,6 @@
 
 	export let q;
 
-	export function focus() {
-		input.focus();
-	}
-
-	let input;
 	let results;
 	let loading;
 
@@ -25,7 +20,7 @@
 </script>
 
 <form disabled={loading} action="search" on:submit|preventDefault={search}>
-	<input bind:this={input} name="q" bind:value={q} on:keydown>
+	<input name="q" bind:value={q} spellcheck="false" on:keydown on:click={e => e.target.select()}>
 </form>
 
 <style>
