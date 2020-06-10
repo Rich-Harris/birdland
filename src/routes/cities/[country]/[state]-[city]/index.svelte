@@ -4,9 +4,7 @@
 		const res = await this.fetch(`cities/${country}/${state}-${city}.json`);
 
 		if (res.ok) {
-			return {
-				city: await res.json()
-			};
+			return await res.json();
 		} else {
 			this.error(res.status, await res.text());
 		}
@@ -22,13 +20,15 @@
 	import * as yootils from 'yootils';
 
 	export let city;
+	export let current;
+	export let forecast;
 
 	let selected;
 	let show_cities = false;
 
 	$: scale = yootils.linearScale([
-		Math.min(...city.forecast.map(d => d.low_temp)),
-		Math.max(...city.forecast.map(d => d.high_temp))
+		Math.min(...forecast.map(d => d.low_temp)),
+		Math.max(...forecast.map(d => d.high_temp))
 	], [0, 100]);
 </script>
 
@@ -43,9 +43,9 @@
 	</div>
 
 	<div class="weather">
-		<Today {city}/>
+		<Today {current}/>
 
-		{#each city.forecast as day}
+		{#each forecast as day}
 			<button
 				id="{day.valid_date}-button"
 				disabled={!process.browser}

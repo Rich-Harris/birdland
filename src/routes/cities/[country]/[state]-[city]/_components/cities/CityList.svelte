@@ -1,5 +1,7 @@
 <script>
 	import { stores } from '@sapper/app';
+	import ToggleForm from './ToggleForm.svelte';
+	import { is_home, is_bookmarked, set_home, add_bookmark, remove_bookmark } from './utils.js';
 
 	const { session } = stores();
 
@@ -14,19 +16,35 @@
 		<ul>
 			{#each $session.user.bookmarks as city (city.slug)}
 				<li>
-					<form
-						method={city.is_home ? 'delete' : 'post'}
-						action="user/home?slug={city.slug}"
-						on:submit|preventDefault={() => toggle_home(city)}
+					<ToggleForm
+						value={is_home($session, city)}
+						data={city}
+						action="user/home"
+						on:engage={() => set_home(session, city)}
+						on:disengage={() => set_home(session, null)}
+						let:value
 					>
-						<button style="background-image: url(icons/home-outline.svg)" type="submit">{city.is_home ? 'remove' : 'add'} as home</button>
-					</form>
+						<button
+							style="background-image: url(icons/home-{value ? 'fill' : 'outline'}.svg)"
+							type="submit"
+						>{value ? 'remove' : 'add'} as home</button>
+					</ToggleForm>
 
 					<a href="cities/{city.slug}"><strong>{city.name}</strong>, {city.qualifier}</a>
 
-					<form method="delete" action="user/save?slug={city.slug}" on:submit|preventDefault={() => toggle_save(city)}>
-						<button style="background-image: url(icons/bookmark-remove.svg)" type="submit">remove from my cities</button>
-					</form>
+					<ToggleForm
+						value={is_bookmarked($session, city)}
+						data={city}
+						action="user/bookmarks"
+						on:engage={() => add_bookmark(session, city)}
+						on:disengage={() => remove_bookmark(session, city)}
+						let:value
+					>
+						<button
+							style="background-image: url(icons/bookmark-{value ? 'fill' : 'outline'}.svg)"
+							type="submit"
+						>{value ? 'remove from' : 'save to'} my cities</button>
+					</ToggleForm>
 				</li>
 			{:else}
 				<li>No cities saved yet</li>
@@ -46,14 +64,14 @@
 	}
 
 	li {
-		padding: 0 0.5em;
+		padding: 0 0.5rem;
 		display: grid;
-		grid-template-columns: 1.4em 1fr 1.4em;
-		grid-gap: 0.5em;
+		grid-template-columns: 1.2rem 1fr 1.2rem;
+		grid-gap: 0.5rem;
 	}
 
 	li a {
-		padding: 0.5em 0;
+		padding: 0.5rem 0;
 	}
 
 	button {

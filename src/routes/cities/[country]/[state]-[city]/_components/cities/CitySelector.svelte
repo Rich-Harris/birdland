@@ -5,6 +5,7 @@
 	import ToggleForm from './ToggleForm.svelte';
 	import Modal from './Modal.svelte';
 	import { stores } from '@sapper/app';
+	import { is_home, is_bookmarked, set_home, add_bookmark, remove_bookmark } from './utils.js';
 
 	export let city;
 	export let show_cities;
@@ -13,14 +14,6 @@
 
 	let results;
 	let modal_contents;
-
-	const toggle_home = city => {
-		console.log('toggle_home', city);
-	};
-
-	const toggle_save = city => {
-		console.log('toggle_save', city);
-	};
 
 	const toggle_cities = e => {
 		if (e.ctrlKey || e.shiftKey || e.metaKey || e.button !== 0) return;
@@ -84,13 +77,33 @@
 
 	{#if $session.user}
 		<div class="controls">
-			<ToggleForm {city} property="is_home" action="user/home.json" handler={toggle_home} let:value>
-				<button style="background-image: url(icons/home-outline.svg)" type="submit">{city.is_home ? 'remove' : 'add'} as home</button>
+			<ToggleForm
+				value={is_home($session, city)}
+				data={city}
+				action="user/home"
+				on:engage={() => set_home(session, city)}
+				on:disengage={() => set_home(session, null)}
+				let:value
+			>
+				<button
+					style="background-image: url(icons/home-{value ? 'fill' : 'outline'}.svg)"
+					type="submit"
+				>{value ? 'remove' : 'add'} as home</button>
 			</ToggleForm>
 
-			<form method={city.is_bookmarked ? 'delete' : 'post'} action="user/save?slug={city.slug}" on:submit|preventDefault={() => toggle_save(city)}>
-				<button style="background-image: url(icons/bookmark-outline.svg)" type="submit">{city.is_bookmarked ? 'remove from' : 'save to'} my cities</button>
-			</form>
+			<ToggleForm
+				value={is_bookmarked($session, city)}
+				data={city}
+				action="user/bookmarks"
+				on:engage={() => add_bookmark(session, city)}
+				on:disengage={() => remove_bookmark(session, city)}
+				let:value
+			>
+				<button
+					style="background-image: url(icons/bookmark-{value ? 'fill' : 'outline'}.svg)"
+					type="submit"
+				>{value ? 'remove from' : 'save to'} my cities</button>
+			</ToggleForm>
 
 			<a
 				href="my-cities"
@@ -108,13 +121,13 @@
 
 <style>
 	.current {
-		padding: 0.5em;
+		padding: 0.5rem;
 		border-bottom: 1px solid rgba(0,0,0,0.2);
 	}
 
 	.qualifier {
 		text-transform: uppercase;
-		margin: 0 0 0.5em 0;
+		margin: 0 0 0.5rem 0;
 		padding: 0 1px;
 	}
 
@@ -137,22 +150,22 @@
 
 	li a {
 		display: block;
-		padding: 0.5em;
+		padding: 0.5rem;
 	}
 
 	.controls {
 		color: #999;
 		display: grid;
-		grid-template-columns: 1fr 1fr 1.4em;
-		grid-gap: 0.5em;
+		grid-template-columns: 1fr 1fr 1.4rem;
+		grid-gap: 0.5rem;
 	}
 
 	.controls button {
 		color: inherit;
 		border: none;
 		background: 0 50% no-repeat;
-		padding: 0 0 0 1.7em;
-		background-size: 1.5em 1.5em;
+		padding: 0.5rem 0.5rem 0.5rem 1.7rem;
+		background-size: 1.2rem 1.2rem;
 	}
 
 	.controls a {

@@ -1,27 +1,27 @@
 <script>
 	import { get_color } from './temperature_scale.js';
 
-	export let city;
+	export let current;
 </script>
 
-<div class="today" style="background: {get_color(city.current.temp, 0.2)}">
+<div class="today" style="background: {get_color(current.temp, 0.2)}">
 	<img
-		alt={city.current.weather.description}
-		src="icons/weather/{city.current.weather.icon}.svg"
+		alt={current.weather.description}
+		src="icons/weather/{current.weather.icon}.svg"
 	>
 
-	<h3>{city.current.weather.description.toLowerCase()}</h3>
+	<h3>{current.weather.description.toLowerCase()}</h3>
 
 	<div class="grid">
 		<div class="temperature">
-			<strong>{city.current.temp}°</strong>
-			<p>feels like {city.current.app_temp}°</p>
+			<strong>{current.temp}°</strong>
+			<p>feels like {current.app_temp}°</p>
 		</div>
 
 		<div class="wind">
-			<strong>{city.current.wind_spd.toFixed(1)}<small>m/s</small></strong>
+			<strong>{current.wind_spd.toFixed(1)}<small>m/s</small></strong>
 
-			<p><span style="display: inline-block; transform: rotate({city.current.wind_dir}deg)">↓</span> {city.current.wind_cdir} winds</p>
+			<p><span style="display: inline-block; transform: rotate({current.wind_dir}deg)">↓</span> {current.wind_cdir} winds</p>
 		</div>
 	</div>
 </div>

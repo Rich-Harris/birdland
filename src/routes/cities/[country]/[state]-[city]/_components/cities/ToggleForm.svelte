@@ -1,36 +1,43 @@
 <script>
-	export let city;
-	export let property;
+	import { createEventDispatcher } from 'svelte';
+	import { stores } from '@sapper/app';
+
+	export let value;
+	export let data;
 	export let action;
-	export let handler;
+
+	const { session } = stores();
+	const dispatch = createEventDispatcher();
 
 	let saving;
-	let value = city[property];
 
-	$: method = city[property] ? 'delete' : 'post';
+	$: method = value ? 'delete' : 'post';
 
 	const handle_submit = async e => {
 		saving = true;
 
 		try {
-			// optimistic UI
-			value = !value;
+			// enable optimistic UI
+			console.log('dispatching', value ? 'disengage' : 'engage');
+			dispatch(value ? 'disengage' : 'engage');
 
-			const res = await fetch(action, {
+			await fetch(action, {
 				method,
-				body: city.slug
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
 			});
 
-			const updated_city = await res.json();
-
-			// just in case the server disagrees with our optimistic UI
-			value = updated_city[property];
+			const res = await fetch('user.json');
+			if (res.ok) {
+				$session.user = await res.json();
+			} else {
+				// TODO handle the error
+			}
 		} catch (error) {
 			// we're probably offline
 			// TODO handle the error
-
-			// revert optimistic UI
-			value = city[property];
 		}
 
 		saving = false;

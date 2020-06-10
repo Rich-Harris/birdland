@@ -790,8 +790,11 @@ export async function get(req, res) {
 	const qualifier = [state_name, country_name].filter(Boolean).join(', ');
 
 	const result = {
-		name: city_name,
-		qualifier,
+		city: {
+			name: city_name,
+			qualifier,
+			slug: `${country_code}/${state_code}-${city_name}`.toLowerCase()
+		},
 
 		current: current.data.data[0],
 		forecast: forecast.data.data
