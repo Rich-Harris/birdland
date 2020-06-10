@@ -8,7 +8,11 @@ body {
 	font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 	font-size: 14px;
 	line-height: 1.5;
-	color: #333;
+	color: #222;
+}
+
+#sapper {
+	background: white;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -25,13 +29,10 @@ a {
 	color: inherit;
 }
 
-code {
-	font-family: menlo, inconsolata, monospace;
-	font-size: calc(1em - 2px);
-	color: #555;
-	background-color: #f0f0f0;
-	padding: 0.2em 0.4em;
-	border-radius: 2px;
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 
 @media (min-width: 400px) {

@@ -6,20 +6,19 @@
 	import Modal from './Modal.svelte';
 
 	export let city;
-	export let cities;
+	export let show_cities;
 
 	const { session } = stores();
 
 	let results;
 	let modal_contents;
-	let show_cities = false;
 
-	const home = e => {
-
+	const toggle_home = city => {
+		console.log('toggle_home', city);
 	};
 
-	const save = e => {
-
+	const toggle_save = city => {
+		console.log('toggle_save', city);
 	};
 
 	const toggle_cities = e => {
@@ -84,11 +83,11 @@
 
 	{#if $session.user}
 		<div class="controls">
-			<form method={city.is_home ? 'delete' : 'post'} action="api/home?returnTo=/cities/{city.slug}" on:submit|preventDefault={home}>
+			<form method={city.is_home ? 'delete' : 'post'} action="api/home?slug={city.slug}" on:submit|preventDefault={() => toggle_home(city)}>
 				<button style="background-image: url(icons/home-outline.svg)" type="submit">{city.is_home ? 'remove' : 'add'} as home</button>
 			</form>
 
-			<form method={city.is_bookmarked ? 'delete' : 'post'} action="api/save?returnTo=/cities/{city.slug}" on:submit|preventDefault={save}>
+			<form method={city.is_bookmarked ? 'delete' : 'post'} action="api/save?slug={city.slug}" on:submit|preventDefault={() => toggle_save(city)}>
 				<button style="background-image: url(icons/bookmark-outline.svg)" type="submit">{city.is_bookmarked ? 'remove from' : 'save to'} my cities</button>
 			</form>
 
@@ -104,20 +103,9 @@
 	{:else}
 		<p><a href="login">log in</a> to save cities and preferences</p>
 	{/if}
-
-	<div
-		class="cities"
-		class:always-visible={show_cities}
-	>
-		<ul>
-			{#each cities as city}
-				<li><a href="cities/{city.slug}"><strong>{city.name}</strong>, {city.qualifier}</a></li>
-			{:else}
-				<li>No cities saved yet</li>
-			{/each}
-		</ul>
-	</div>
 </div>
+
+
 
 <style>
 	.current {
@@ -138,9 +126,6 @@
 
 	ul {
 		background-color: white;
-		list-style: none;
-		padding: 0;
-		margin: 0;
 		text-align: left;
 		border-radius: 2px;
 		max-height: 50vh;
@@ -159,7 +144,7 @@
 	.controls {
 		color: #999;
 		display: grid;
-		grid-template-columns: 1fr 1fr 2em;
+		grid-template-columns: 1fr 1fr 1.4em;
 		grid-gap: 0.5em;
 	}
 
@@ -184,19 +169,9 @@
 		overflow: hidden;
 	}
 
-	.cities {
-		display: none;
-	}
 
-	.cities.always-visible {
-		display: block;
-	}
 
 	@media (min-width: 720px) {
-		.cities {
-			display: block;
-		}
-
 		.controls {
 			grid-template-columns: 1fr 1fr;
 		}

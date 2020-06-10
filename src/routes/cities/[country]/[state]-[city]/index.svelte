@@ -21,6 +21,7 @@
 
 <script>
 	import CitySelector from './_components/CitySelector.svelte';
+	import CityList from './_components/CityList.svelte';
 	import Today from './_components/Today.svelte';
 	import Summary from './_components/Summary.svelte';
 	import Details from './_components/Details.svelte';
@@ -31,6 +32,7 @@
 	export let user;
 
 	let selected;
+	let show_cities = false;
 
 	$: scale = yootils.linearScale([
 		Math.min(...city.forecast.map(d => d.low_temp)),
@@ -44,7 +46,11 @@
 
 <main>
 	<div class="cities">
-		<CitySelector {city} {cities}/>
+		<CitySelector {city} bind:show_cities/>
+
+		{#if user}
+			<CityList {cities} visible={show_cities}/>
+		{/if}
 	</div>
 
 	<div class="weather">
@@ -69,10 +75,6 @@
 </main>
 
 <style>
-	main {
-		background-color: white;
-	}
-
 	button {
 		display: block;
 		width: 100%;
