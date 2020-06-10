@@ -31,7 +31,7 @@
 </script>
 
 <svelte:head>
-	<title>{city.city_name} • Birdland</title>
+	<title>{city.name} • Birdland</title>
 </svelte:head>
 
 <div class="cities">

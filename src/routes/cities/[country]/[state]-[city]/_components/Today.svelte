@@ -24,8 +24,6 @@
 			<p><span style="display: inline-block; transform: rotate({city.current.wind_dir}deg)">↓</span> {city.current.wind_cdir} winds</p>
 		</div>
 	</div>
-
-	<!-- <pre>{JSON.stringify(city.current, null, '  ')}</pre> -->
 </div>
 
 <style>
