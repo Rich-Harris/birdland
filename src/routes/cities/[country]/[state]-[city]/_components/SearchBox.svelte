@@ -32,13 +32,14 @@
 		width: 100%;
 		font-family: inherit;
 		font-size: 2em;
+		padding: 0 1.2em 0 0;
 		margin: 0;
 		text-transform: uppercase;
 		font-weight: 200;
-		text-align: center;
 		border: none;
-		padding: 0 1em;
 		border-radius: 2px;
 		z-index: 3;
+		background: url(/icons/search.svg) 100% 50% no-repeat;
+		background-size: 1em 1em;
 	}
 </style>

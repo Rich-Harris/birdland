@@ -67,12 +67,12 @@
 <style>
 	.current {
 		padding: 0.5em;
-		text-align: center;
 	}
 
 	p {
-		margin: 0;
 		color: #999;
+		margin: 0;
+		padding: 0 3px;
 	}
 
 	.modal-contents {
