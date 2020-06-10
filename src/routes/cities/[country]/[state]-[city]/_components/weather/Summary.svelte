@@ -16,7 +16,7 @@
 </script>
 
 <div class="summary" style="background-image: url(icons/weather/{day.weather.icon}.svg)">
-	<span class="day">{get_day_of_week(day)}</span>
+	<span>{get_day_of_week(day)}</span>
 	<div class="temperature-range-outer">
 		<div
 			class="temperature-range-inner"
@@ -32,16 +32,13 @@
 
 <style>
 	.summary {
-		display: flex;
+		display: grid;
+		grid-template-columns: 7em 1fr 1.2rem;
 		background: 0.5em 50% no-repeat;
 		background-size: 2em 2em;
 		text-align: left;
 		padding: 1em 1em 1em 3.5em;
 		align-items: center;
-	}
-
-	.day {
-		width: 7em;
 	}
 
 	.temperature-range-outer {

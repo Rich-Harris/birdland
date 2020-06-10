@@ -102,7 +102,7 @@
 				<button
 					style="background-image: url(icons/bookmark-{value ? 'fill' : 'outline'}.svg)"
 					type="submit"
-				>{value ? 'remove from' : 'save to'} my cities</button>
+				>{value ? 'unbookmark' : 'bookmark'}</button>
 			</ToggleForm>
 
 			<a
@@ -164,7 +164,7 @@
 		color: inherit;
 		border: none;
 		background: 0 50% no-repeat;
-		padding: 0.5rem 0.5rem 0.5rem 1.7rem;
+		padding: 0.5rem 0.5rem 0.5rem 1.4rem;
 		background-size: 1.2rem 1.2rem;
 	}
 

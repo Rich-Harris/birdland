@@ -1,5 +1,6 @@
 <script>
 	import { stores } from '@sapper/app';
+	import { slide } from 'svelte/transition';
 	import ToggleForm from './ToggleForm.svelte';
 	import { is_home, is_bookmarked, set_home, add_bookmark, remove_bookmark } from './utils.js';
 
@@ -13,43 +14,45 @@
 		class="cities"
 		class:always-visible={visible}
 	>
-		<ul>
-			{#each $session.user.bookmarks as city (city.slug)}
-				<li>
-					<ToggleForm
-						value={is_home($session, city)}
-						data={city}
-						action="user/home"
-						on:engage={() => set_home(session, city)}
-						on:disengage={() => set_home(session, null)}
-						let:value
-					>
-						<button
-							style="background-image: url(icons/home-{value ? 'fill' : 'outline'}.svg)"
-							type="submit"
-						>{value ? 'remove' : 'add'} as home</button>
-					</ToggleForm>
+		{#if $session.user.bookmarks.length > 0}
+			<ul>
+				{#each $session.user.bookmarks as city (city.slug)}
+					<li transition:slide={{duration:200}}>
+						<ToggleForm
+							value={is_home($session, city)}
+							data={city}
+							action="user/home"
+							on:engage={() => set_home(session, city)}
+							on:disengage={() => set_home(session, null)}
+							let:value
+						>
+							<button
+								style="background-image: url(icons/home-{value ? 'fill' : 'outline'}.svg)"
+								type="submit"
+							>{value ? 'remove' : 'add'} as home</button>
+						</ToggleForm>
 
-					<a href="cities/{city.slug}"><strong>{city.name}</strong>, {city.qualifier}</a>
+						<a href="cities/{city.slug}"><strong>{city.name}</strong>, {city.qualifier}</a>
 
-					<ToggleForm
-						value={is_bookmarked($session, city)}
-						data={city}
-						action="user/bookmarks"
-						on:engage={() => add_bookmark(session, city)}
-						on:disengage={() => remove_bookmark(session, city)}
-						let:value
-					>
-						<button
-							style="background-image: url(icons/bookmark-{value ? 'fill' : 'outline'}.svg)"
-							type="submit"
-						>{value ? 'remove from' : 'save to'} my cities</button>
-					</ToggleForm>
-				</li>
-			{:else}
-				<li>No cities saved yet</li>
-			{/each}
-		</ul>
+						<ToggleForm
+							value={is_bookmarked($session, city)}
+							data={city}
+							action="user/bookmarks"
+							on:engage={() => add_bookmark(session, city)}
+							on:disengage={() => remove_bookmark(session, city)}
+							let:value
+						>
+							<button
+								style="background-image: url(icons/bookmark-{value ? 'fill' : 'outline'}.svg)"
+								type="submit"
+							>{value ? 'unbookmark' : 'bookmark'}</button>
+						</ToggleForm>
+					</li>
+				{/each}
+			</ul>
+		{:else}
+			<p>No cities saved yet</p>
+		{/if}
 	</div>
 {/if}
 
@@ -70,8 +73,18 @@
 		grid-gap: 0.5rem;
 	}
 
+	li:hover {
+		background-color: rgba(0,0,0,0.05);
+	}
+
 	li a {
 		padding: 0.5rem 0;
+		text-decoration: none;
+		color: #999;
+	}
+
+	li strong {
+		color: #222;
 	}
 
 	button {
@@ -81,6 +94,11 @@
 		background: transparent 50% 50% no-repeat;
 		background-size: contain;
 		border: none;
+	}
+
+	p {
+		padding: 0.5em;
+		margin: 0;
 	}
 
 	@media (min-width: 720px) {
