@@ -19,7 +19,7 @@
 		</div>
 
 		<div class="wind">
-			<strong>{city.current.wind_spd}<small>m/s</small></strong>
+			<strong>{city.current.wind_spd.toFixed(1)}<small>m/s</small></strong>
 
 			<p><span style="display: inline-block; transform: rotate({city.current.wind_dir}deg)">↓</span> {city.current.wind_cdir} winds</p>
 		</div>
