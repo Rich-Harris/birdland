@@ -20,7 +20,13 @@
 </script>
 
 <form disabled={loading} action="search" on:submit|preventDefault={search}>
-	<input name="q" bind:value={q} spellcheck="false" on:keydown on:click={e => e.target.select()}>
+	<input
+		name="q"
+		spellcheck="false"
+		pattern="..+"
+		bind:value={q}
+		on:click={e => e.target.select()}
+	>
 </form>
 
 <style>

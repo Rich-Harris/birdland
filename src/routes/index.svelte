@@ -4,10 +4,10 @@
 
 		if (res.ok) {
 			const data = await res.json();
-			const { city, country_code, region_code } = data;
-			this.redirect(302, `cities/${country_code}/${region_code}-${city}`.toLowerCase());
+			const { slug } = data;
+			this.redirect(302, `cities/${slug}`);
 		} else {
-			this.redirect(302, 'cities/us/ny-new-york');
+			this.redirect(302, 'cities/us/ny/new-york');
 		}
 	}
 </script>

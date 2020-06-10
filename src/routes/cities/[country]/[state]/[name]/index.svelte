@@ -1,7 +1,7 @@
 <script context="module">
 	export async function preload({ params }) {
 		const { country, state, city } = params;
-		const res = await this.fetch(`cities/${country}/${state}-${city}.json`);
+		const res = await this.fetch(`cities/${country}/${state}/${city}.json`);
 
 		if (res.ok) {
 			return await res.json();

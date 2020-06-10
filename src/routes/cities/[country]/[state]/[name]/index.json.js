@@ -1,6 +1,5 @@
 import * as httpie from 'httpie';
-import countries from './_data/countries.json';
-import states from './_data/states.json';
+import { country_lookup, state_lookup } from '@api/data';
 
 const BASE_URL = `https://api.weatherbit.io/v2.0`;
 const { WEATHERBIT_API_KEY: key } = process.env;
@@ -781,11 +780,8 @@ export async function get(req, res) {
 
 	const { data, city_name, state_code, country_code } = forecast.data;
 
-	const state = states.find(d => d.state_code === state_code && d.country_code === country_code);
-	const state_name = state && state.state_name;
-
-	const country = countries.find(d => d.country_code === country_code);
-	const country_name = country && country.country_name;
+	const state_name = state_code && state_lookup.get(state_code);
+	const country_name = country_lookup.get(country_code);
 
 	const qualifier = [state_name, country_name].filter(Boolean).join(', ');
 

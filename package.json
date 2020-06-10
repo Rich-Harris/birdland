@@ -18,6 +18,7 @@
     "express": "^4.17.1",
     "express-openid-connect": "^1.0.2",
     "faunadb": "^2.14.2",
+    "haversine": "^1.1.1",
     "httpie": "^1.1.2",
     "maxmind": "^4.1.2",
     "polka": "next",
