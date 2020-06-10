@@ -4,11 +4,17 @@ html * {
 }
 
 body {
+	--black: #222;
+	--gray: #888;
+	--light-gray: #eee;
+	--lighter-gray: #f4f4f4;
+
 	margin: 0;
 	font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 	font-size: 14px;
+	font-weight: 300;
 	line-height: 1.5;
-	color: #222;
+	color: var(--black);
 }
 
 #sapper {

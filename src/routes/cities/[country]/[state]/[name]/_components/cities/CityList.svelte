@@ -32,7 +32,12 @@
 							>{value ? 'remove' : 'add'} as home</button>
 						</ToggleForm>
 
-						<a href="cities/{city.slug}"><strong>{city.name}</strong>, {city.qualifier}</a>
+						<a href="cities/{city.slug}">
+							<strong>{city.name}</strong>
+							{#if city.qualifier}
+								<span class="qualifier">{city.qualifier}</span>
+							{/if}
+						</a>
 
 						<ToggleForm
 							value={is_bookmarked($session, city)}
@@ -74,17 +79,23 @@
 	}
 
 	li:hover {
-		background-color: rgba(0,0,0,0.05);
+		background-color: var(--lighter-gray);
 	}
 
 	li a {
 		padding: 0.5rem 0;
 		text-decoration: none;
-		color: #999;
+		color: var(--gray);
 	}
 
 	li strong {
-		color: #222;
+		font-weight: 400;
+		color: var(--black);
+	}
+
+	li .qualifier {
+		font-size: 14px;
+		text-transform: uppercase;
 	}
 
 	button {

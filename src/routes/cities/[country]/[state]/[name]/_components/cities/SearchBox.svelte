@@ -30,9 +30,11 @@
 </form>
 
 <style>
-	/* form {
-		margin: 0 0 0.5em 0;
-	} */
+	form {
+		padding: 0.5rem;
+		background: white;
+		border-radius: 0.2rem 0.2rem 0 0;
+	}
 
 	input {
 		width: 100%;
@@ -43,9 +45,9 @@
 		text-transform: uppercase;
 		font-weight: 200;
 		border: none;
-		border-radius: 2px;
+		border-radius: 0.2rem;
 		z-index: 3;
-		background: white url(/icons/search.svg) 100% 50% no-repeat;
+		background: url(/icons/search.svg) 100% 50% no-repeat;
 		background-size: 1em 1em;
 	}
 </style>

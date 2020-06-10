@@ -25,6 +25,8 @@
 	const handle_results = e => {
 		q = e.detail.q;
 		results = e.detail.results;
+
+		console.log(results);
 	};
 
 	const handle_keydown = e => {
@@ -58,9 +60,14 @@
 							<li>
 								<a
 									tabindex="0"
-									href={result.href}
+									href="cities/{result.slug}"
 									on:click={() => results = null}
-								>{result.name}</a>
+								>
+									<strong>{result.name}</strong>
+									{#if result.qualifier}
+										<span class="qualifier">{result.qualifier}</span>
+									{/if}
+								</a>
 							</li>
 						{/each}
 					</ul>
@@ -121,41 +128,64 @@
 
 <style>
 	.current {
-		padding: 0.5rem;
-		border-bottom: 1px solid rgba(0,0,0,0.2);
+		padding: 0.5rem 0;
+		border-bottom: 1px solid var(--light-gray);
 	}
 
-	.qualifier {
+	.current .qualifier {
 		text-transform: uppercase;
 		margin: 0 0 0.5rem 0;
-		padding: 0 1px;
+		padding: 0 0.5rem;
+		color: var(--gray);
 	}
 
 	.modal-contents {
 		position: absolute;
+		width: 100%;
 		z-index: 2;
 	}
 
 	ul {
 		background-color: white;
 		text-align: left;
-		border-radius: 2px;
+		border-radius: 0 0 0.2rem 0.2rem;
 		max-height: 50vh;
 		overflow-y: scroll;
+		top: -2px;
+		padding: 0.5rem;
 	}
 
-	li {
-		border-bottom: 1px solid rgba(0,0,0,0.1);
+	li:not(:last-child) {
+		border-bottom: 1px solid var(--light-gray);
+	}
+
+	li:hover {
+		background-color: var(--lighter-gray);
 	}
 
 	li a {
 		display: block;
 		padding: 0.5rem;
+		text-decoration: none;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		color: var(--gray);
+	}
+
+	li strong {
+		font-weight: normal;
+		color: var(--black);
+	}
+
+	li .qualifier {
+		font-size: 14px;
 	}
 
 	.controls {
-		color: #999;
+		color: var(--gray);
 		display: grid;
+		padding: 0 0.5rem;
 		grid-template-columns: 1fr 1fr 1.4rem;
 		grid-gap: 0.5rem;
 	}

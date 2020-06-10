@@ -1,7 +1,7 @@
 <script context="module">
 	export async function preload({ params }) {
-		const { country, state, city } = params;
-		const res = await this.fetch(`cities/${country}/${state}/${city}.json`);
+		const { country, state, name } = params;
+		const res = await this.fetch(`cities/${country}/${state}/${name}.json`);
 
 		if (res.ok) {
 			return await res.json();
@@ -69,7 +69,7 @@
 		width: 100%;
 		background: none;
 		border: none;
-		border-top: 1px solid rgba(0,0,0,0.2);
+		border-top: 1px solid var(--light-gray);
 		padding: 0;
 	}
 
@@ -83,7 +83,7 @@
 
 		.cities {
 			order: 2;
-			border-left: 1px solid rgba(0,0,0,0.2);
+			border-left: 1px solid var(--light-gray);
 		}
 
 		.weather {

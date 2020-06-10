@@ -18,7 +18,6 @@
 
 		try {
 			// enable optimistic UI
-			console.log('dispatching', value ? 'disengage' : 'engage');
 			dispatch(value ? 'disengage' : 'engage');
 
 			await fetch(action, {
