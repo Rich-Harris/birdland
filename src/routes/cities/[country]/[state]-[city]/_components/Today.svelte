@@ -80,15 +80,4 @@
 	.wind {
 		text-align: left;
 	}
-
-	.wind-direction {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		display: block;
-		font-size: 4em;
-		opacity: 0.2;
-		pointer-events: none;
-		text-align: center;
-	}
 </style>

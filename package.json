@@ -12,9 +12,11 @@
     "test": "run-p --race dev cy:run"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
     "compression": "^1.7.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-openid-connect": "^1.0.2",
     "httpie": "^1.1.2",
     "maxmind": "^4.1.2",
     "polka": "next",
