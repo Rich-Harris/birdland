@@ -1,9 +1,10 @@
 <script>
 	import * as yootils from 'yootils';
-	import { stores } from '@sapper/app';
 	import ExpandToggleIcon from '@components/ExpandToggleIcon.svelte';
 	import SearchBox from './SearchBox.svelte';
+	import ToggleForm from './ToggleForm.svelte';
 	import Modal from './Modal.svelte';
+	import { stores } from '@sapper/app';
 
 	export let city;
 	export let show_cities;
@@ -83,11 +84,11 @@
 
 	{#if $session.user}
 		<div class="controls">
-			<form method={city.is_home ? 'delete' : 'post'} action="api/home?slug={city.slug}" on:submit|preventDefault={() => toggle_home(city)}>
+			<ToggleForm {city} property="is_home" action="user/home.json" handler={toggle_home} let:value>
 				<button style="background-image: url(icons/home-outline.svg)" type="submit">{city.is_home ? 'remove' : 'add'} as home</button>
-			</form>
+			</ToggleForm>
 
-			<form method={city.is_bookmarked ? 'delete' : 'post'} action="api/save?slug={city.slug}" on:submit|preventDefault={() => toggle_save(city)}>
+			<form method={city.is_bookmarked ? 'delete' : 'post'} action="user/save?slug={city.slug}" on:submit|preventDefault={() => toggle_save(city)}>
 				<button style="background-image: url(icons/bookmark-outline.svg)" type="submit">{city.is_bookmarked ? 'remove from' : 'save to'} my cities</button>
 			</form>
 
@@ -104,8 +105,6 @@
 		<p><a href="login">log in</a> to save cities and preferences</p>
 	{/if}
 </div>
-
-
 
 <style>
 	.current {

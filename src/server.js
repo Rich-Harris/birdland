@@ -5,13 +5,13 @@ import { auth } from 'express-openid-connect';
 import bodyParser from 'body-parser';
 // import compression from 'compression';
 import * as sapper from '@sapper/server';
+import * as user from '@api/user.js';
 
 const {
 	PORT,
 	NODE_ENV,
 	AUTH0_CLIENT_ID,
-	AUTH0_DOMAIN,
-	AUTH0_CLIENT_SECRET
+	AUTH0_DOMAIN
 } = process.env;
 
 const dev = NODE_ENV === 'development';
@@ -38,10 +38,18 @@ app.use(
 		}
 	}),
 
+	async (req, res, next) => {
+		req.user = req.openid.user
+			? await user.get(req.openid.user)
+			: null;
+
+		next();
+	},
+
 	sapper.middleware({
-		session: (req) => {
+		session: req => {
 			return {
-				user: req.openid.user
+				user: req.user
 			};
 		}
 	})

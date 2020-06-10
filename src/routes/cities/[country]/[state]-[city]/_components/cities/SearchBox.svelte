@@ -10,7 +10,7 @@
 
 	const search = async (e) => {
 		loading = true;
-		const res = await fetch(`api/search.json?q=${q}`);
+		const res = await fetch(`search.json?q=${q}`);
 		dispatch('results', {
 			q,
 			results: await res.json()

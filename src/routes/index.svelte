@@ -1,6 +1,6 @@
 <script context="module">
 	export async function preload() {
-		const res = await this.fetch(`api/my-location.json`);
+		const res = await this.fetch(`user/location.json`);
 
 		if (res.ok) {
 			const data = await res.json();

@@ -1,17 +1,11 @@
 <script context="module">
-	export async function preload({ params }, { user }) {
+	export async function preload({ params }) {
 		const { country, state, city } = params;
 		const res = await this.fetch(`cities/${country}/${state}-${city}.json`);
 
 		if (res.ok) {
 			return {
-				city: await res.json(),
-				cities: [
-					{ name: 'Brooklyn', qualifier: 'New York, United States', slug: 'us/ny-brooklyn' },
-					{ name: 'London', qualifier: 'England', slug: 'gb/eng-london' },
-					{ name: 'Paris', qualifier: 'France', slug: 'fr/11-paris' }
-				],
-				user
+				city: await res.json()
 			};
 		} else {
 			this.error(res.status, await res.text());
@@ -20,16 +14,14 @@
 </script>
 
 <script>
-	import CitySelector from './_components/CitySelector.svelte';
-	import CityList from './_components/CityList.svelte';
-	import Today from './_components/Today.svelte';
-	import Summary from './_components/Summary.svelte';
-	import Details from './_components/Details.svelte';
+	import CitySelector from './_components/cities/CitySelector.svelte';
+	import CityList from './_components/cities/CityList.svelte';
+	import Today from './_components/weather/Today.svelte';
+	import Summary from './_components/weather/Summary.svelte';
+	import Details from './_components/weather/Details.svelte';
 	import * as yootils from 'yootils';
 
 	export let city;
-	export let cities;
-	export let user;
 
 	let selected;
 	let show_cities = false;
@@ -47,10 +39,7 @@
 <main>
 	<div class="cities">
 		<CitySelector {city} bind:show_cities/>
-
-		{#if user}
-			<CityList {cities} visible={show_cities}/>
-		{/if}
+		<CityList visible={show_cities}/>
 	</div>
 
 	<div class="weather">
