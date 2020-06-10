@@ -14,6 +14,8 @@
 </script>
 
 <script>
+	import CitySelector from './_components/CitySelector.svelte';
+	import Today from './_components/Today.svelte';
 	import Summary from './_components/Summary.svelte';
 	import Details from './_components/Details.svelte';
 	import * as yootils from 'yootils';
@@ -28,23 +30,33 @@
 	], [0, 100]);
 </script>
 
-<h1>{city.city_name}</h1>
+<svelte:head>
+	<title>{city.city_name} • Birdland</title>
+</svelte:head>
 
-{#each city.forecast as day}
-	<button
-		id="{day.valid_date}-button"
-		disabled={!process.browser}
-		aria-expanded={selected === day}
-		aria-controls="{day.valid_date}-contents"
-		on:click="{() => selected = (selected === day ? null : day)}"
-	>
-		<Summary {day} expanded={selected === day} {scale}/>
-	</button>
+<div class="cities">
+	<CitySelector {city}/>
+</div>
 
-	{#if selected === day}
-		<Details {day}/>
-	{/if}
-{/each}
+<div class="weather">
+	<Today {city}/>
+
+	{#each city.forecast as day}
+		<button
+			id="{day.valid_date}-button"
+			disabled={!process.browser}
+			aria-expanded={selected === day}
+			aria-controls="{day.valid_date}-contents"
+			on:click="{() => selected = (selected === day ? null : day)}"
+		>
+			<Summary {day} expanded={selected === day} {scale}/>
+		</button>
+
+		{#if selected === day}
+			<Details {day}/>
+		{/if}
+	{/each}
+</div>
 
 <style>
 	button {

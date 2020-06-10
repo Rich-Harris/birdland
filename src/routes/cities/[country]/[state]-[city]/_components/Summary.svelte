@@ -14,7 +14,7 @@
 	};
 </script>
 
-<div class="summary" style="background-image: url(https://www.weatherbit.io/static/img/icons/{day.weather.icon}.png)">
+<div class="summary" style="background-image: url(icons/weather/{day.weather.icon}.svg)">
 	<span class="day">{get_day_of_week(day)}</span>
 	<div class="temperature-range-outer">
 		<div
@@ -34,7 +34,7 @@
 		background: 0 50% no-repeat;
 		background-size: 2em 2em;
 		text-align: left;
-		padding: 0.5em 1em 0.5em 3em;
+		padding: 1em 1em 1em 3em;
 		align-items: center;
 	}
 
@@ -69,8 +69,8 @@
 	}
 
 	img {
-		width: 2em;
-		height: 2em;
+		width: 1.4em;
+		height: 1.4em;
 		transition: transform 0.2s;
 		will-change: transform;
 		margin: 0 0 0 3em;
