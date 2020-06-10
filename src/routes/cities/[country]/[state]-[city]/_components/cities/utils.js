@@ -3,7 +3,7 @@ export const is_home = ($session, city) => {
 };
 
 export const is_bookmarked = ($session, city) => {
-	return $session.user.bookmarks.findIndex(d => d.slug === city.slug) !== -1;
+	return !!$session.user.bookmarks.find(d => d.slug === city.slug);
 };
 
 export const set_home = (session, city) => {
@@ -17,7 +17,7 @@ export const set_home = (session, city) => {
 
 export const add_bookmark = (session, city) => {
 	session.update($session => {
-		if ($session.user.bookmarks.findIndex(d => d.slug === city.slug) === -1) {
+		if (!$session.user.bookmarks.find(d => d.slug === city.slug)) {
 			$session.user.bookmarks = $session.user.bookmarks.concat(city).sort((a, b) => {
 				return a.name < b.name ? -1 : 1;
 			});

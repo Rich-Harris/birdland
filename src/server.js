@@ -5,7 +5,7 @@ import { auth } from 'express-openid-connect';
 import bodyParser from 'body-parser';
 // import compression from 'compression';
 import * as sapper from '@sapper/server';
-import * as user from '@api/user.js';
+import { get as get_user } from '@api/user.js';
 
 const {
 	PORT,
@@ -38,18 +38,14 @@ app.use(
 		}
 	}),
 
-	async (req, res, next) => {
-		req.user = req.openid.user
-			? await user.get(req.openid.user)
-			: null;
-
-		next();
-	},
-
 	sapper.middleware({
-		session: req => {
+		session: async (req) => {
+			const user = req.openid.user
+				? await get_user(req.openid.user)
+				: null;
+
 			return {
-				user: req.user
+				user
 			};
 		}
 	})
