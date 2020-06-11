@@ -41,6 +41,14 @@ ul {
 	margin: 0;
 }
 
+:focus {
+	z-index: 2;
+}
+
+.clicking :focus {
+	outline: none;
+}
+
 @media (min-width: 400px) {
 	body {
 		font-size: 16px;
