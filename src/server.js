@@ -18,6 +18,8 @@ const {
 const dev = NODE_ENV === 'development';
 const base = VERCEL_URL ? `https://${VERCEL_URL}` : `http://localhost:${PORT}`;
 
+console.log({ VERCEL_URL, base });
+
 const app = express();
 
 app.use(
