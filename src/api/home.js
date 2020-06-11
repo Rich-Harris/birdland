@@ -1,4 +1,4 @@
-import { q, client } from '@api/db';
+import { q, client } from './db.js';
 
 const get_document = async email => {
 	try {

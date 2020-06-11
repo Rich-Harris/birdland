@@ -1,4 +1,4 @@
-import { cities, slugify } from '@api/data';
+import { cities, slugify } from './data.js';
 
 export function search(q) {
 	const slug = slugify(q);

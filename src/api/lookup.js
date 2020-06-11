@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as httpie from 'httpie';
-import { city_lookup } from '@api/data';
+import { city_lookup } from './data.js';
 
 const BASE_URL = `https://api.weatherbit.io/v2.0`;
 const { WEATHERBIT_API_KEY: key, NODE_ENV } = process.env;

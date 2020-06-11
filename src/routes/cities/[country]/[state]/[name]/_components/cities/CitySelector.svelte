@@ -1,6 +1,6 @@
 <script>
 	import * as yootils from 'yootils';
-	import ExpandToggleIcon from '@components/ExpandToggleIcon.svelte';
+	import ExpandToggleIcon from '../ExpandToggleIcon.svelte';
 	import SearchBox from './SearchBox.svelte';
 	import ToggleForm from './ToggleForm.svelte';
 	import Modal from './Modal.svelte';

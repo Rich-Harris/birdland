@@ -1,6 +1,6 @@
 import { authed } from './_authed.js';
-import * as home from '@api/home.js';
-import * as bookmarks from '@api/bookmarks.js';
+import * as home from '../../api/home.js';
+import * as bookmarks from '../../api/bookmarks.js';
 
 export const post = authed(async (req, res, userdata) => {
 	const city = req.body;

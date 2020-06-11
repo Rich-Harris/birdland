@@ -1,5 +1,5 @@
 <script>
-	import ExpandToggleIcon from '@components/ExpandToggleIcon.svelte';
+	import ExpandToggleIcon from '../ExpandToggleIcon.svelte';
 	import { get_color } from './temperature_scale.js';
 
 	export let day;

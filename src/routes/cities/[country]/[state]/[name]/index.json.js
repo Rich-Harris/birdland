@@ -1,4 +1,4 @@
-import { lookup } from '@api/lookup.js';
+import { lookup } from '../../../../../api/lookup.js';
 
 export async function get(req, res, next) {
 	const { country, state, name } = req.params;
