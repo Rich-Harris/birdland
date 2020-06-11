@@ -2,6 +2,7 @@
 	import { stores } from '@sapper/app';
 	import { slide } from 'svelte/transition';
 	import ToggleForm from './ToggleForm.svelte';
+	import CityLink from '../../../../../../../components/CityLink.svelte';
 	import { is_home, is_bookmarked, set_home, add_bookmark, remove_bookmark } from './utils.js';
 
 	const { session } = stores();
@@ -32,12 +33,13 @@
 							>{value ? 'remove' : 'add'} as home</button>
 						</ToggleForm>
 
-						<a href="cities/{city.slug}">
+						<CityLink {city}/>
+						<!-- <a href="cities/{city.slug}">
 							<strong>{city.name}</strong>
 							{#if city.qualifier}
 								<span class="qualifier">{city.qualifier}</span>
 							{/if}
-						</a>
+						</a> -->
 
 						<ToggleForm
 							value={is_bookmarked($session, city)}
@@ -80,22 +82,6 @@
 
 	li:hover {
 		background-color: var(--lighter-gray);
-	}
-
-	li a {
-		padding: 0.5rem 0;
-		text-decoration: none;
-		color: var(--gray);
-	}
-
-	li strong {
-		font-weight: 400;
-		color: var(--black);
-	}
-
-	li .qualifier {
-		font-size: 14px;
-		text-transform: uppercase;
 	}
 
 	button {

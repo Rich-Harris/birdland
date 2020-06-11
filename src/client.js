@@ -10,7 +10,7 @@ window.addEventListener('mousedown', () => {
 });
 
 window.addEventListener('keydown', e => {
-	if (e.key === 'Tab') {
+	if (e.key === 'Tab' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
 		document.body.classList.add('tabbing');
 		document.body.classList.remove('clicking');
 	}

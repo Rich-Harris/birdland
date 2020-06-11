@@ -21,6 +21,7 @@
 
 <form disabled={loading} method="get" action="search" on:submit|preventDefault={search}>
 	<input
+		placeholder="Search for a city"
 		name="q"
 		spellcheck="false"
 		pattern="..+"

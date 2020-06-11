@@ -1,7 +1,8 @@
 <script>
 	import * as yootils from 'yootils';
 	import ExpandToggleIcon from '../ExpandToggleIcon.svelte';
-	import SearchBox from './SearchBox.svelte';
+	import SearchBox from '../../../../../../../components/SearchBox.svelte';
+	import CityLink from '../../../../../../../components/CityLink.svelte';
 	import ToggleForm from './ToggleForm.svelte';
 	import Modal from './Modal.svelte';
 	import { stores } from '@sapper/app';
@@ -10,10 +11,14 @@
 	export let city;
 	export let show_cities;
 
-	const { session } = stores();
+	const { session, page } = stores();
 
 	let results;
 	let modal_contents;
+
+	page.subscribe(() => {
+		results = null;
+	});
 
 	const toggle_cities = e => {
 		if (e.ctrlKey || e.shiftKey || e.metaKey || e.button !== 0) return;
@@ -25,8 +30,6 @@
 	const handle_results = e => {
 		q = e.detail.q;
 		results = e.detail.results;
-
-		console.log(results);
 	};
 
 	const handle_keydown = e => {
@@ -57,18 +60,7 @@
 				{#if results.length > 0}
 					<ul>
 						{#each results as result}
-							<li>
-								<a
-									tabindex="0"
-									href="cities/{result.slug}"
-									on:click={() => results = null}
-								>
-									<strong>{result.name}</strong>
-									{#if result.qualifier}
-										<span class="qualifier">{result.qualifier}</span>
-									{/if}
-								</a>
-							</li>
+							<li><CityLink city={result}/></li>
 						{/each}
 					</ul>
 				{:else}
@@ -164,25 +156,6 @@
 
 	li:hover {
 		background-color: var(--lighter-gray);
-	}
-
-	li a {
-		display: block;
-		padding: 0.5rem;
-		text-decoration: none;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		color: var(--gray);
-	}
-
-	li strong {
-		font-weight: normal;
-		color: var(--black);
-	}
-
-	li .qualifier {
-		font-size: 14px;
 	}
 
 	.controls {
