@@ -132,10 +132,13 @@
 		border-bottom: 1px solid var(--light-gray);
 	}
 
+	p {
+		padding: 0 0.5rem;
+	}
+
 	.current .qualifier {
 		text-transform: uppercase;
 		margin: 0 0 0.5rem 0;
-		padding: 0 0.5rem;
 		color: var(--gray);
 	}
 
@@ -210,8 +213,6 @@
 		height: 0;
 		overflow: hidden;
 	}
-
-
 
 	@media (min-width: 720px) {
 		.controls {
