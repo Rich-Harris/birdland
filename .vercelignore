@@ -1,4 +1,2 @@
 __sapper__
-/node_modules
-/src/node_modules/@sapper
 cypress
