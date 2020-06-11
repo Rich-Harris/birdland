@@ -1,7 +1,10 @@
 <script>
+	import { getContext } from 'svelte';
 	import { get_color } from './temperature_scale.js';
 
 	export let current;
+
+	const { temp } = getContext('utils');
 </script>
 
 <div class="today" style="background: {get_color(current.temp, 0.2)}">
@@ -14,8 +17,8 @@
 
 	<div class="grid">
 		<div class="temperature">
-			<strong>{current.temp}°</strong>
-			<p>feels like {current.app_temp}°</p>
+			<strong>{$temp(current.temp)}</strong>
+			<p>feels like {$temp(current.app_temp)}</p>
 		</div>
 
 		<div class="wind">

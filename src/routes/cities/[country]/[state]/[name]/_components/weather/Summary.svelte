@@ -1,10 +1,13 @@
 <script>
+	import { getContext } from 'svelte';
 	import ExpandToggleIcon from '../ExpandToggleIcon.svelte';
 	import { get_color } from './temperature_scale.js';
 
 	export let day;
 	export let expanded;
 	export let scale;
+
+	const { temp } = getContext('utils');
 
 	const days = 'Sun Mon Tues Weds Thurs Fri Sat'.split(' ');
 
@@ -22,8 +25,8 @@
 			class="temperature-range-inner"
 			style="left: {scale(day.low_temp)}%; right: {100 - scale(day.high_temp)}%; --cold: {get_color(day.low_temp)}; --hot: {get_color(day.high_temp)}"
 		>
-			<span>{Math.round(day.low_temp)}°</span>
-			<span>{Math.round(day.high_temp)}°</span>
+			<span>{$temp(day.low_temp, true)}</span>
+			<span>{$temp(day.high_temp, true)}</span>
 		</div>
 	</div>
 

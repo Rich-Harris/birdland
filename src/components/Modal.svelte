@@ -55,4 +55,12 @@
 		background-color: rgba(0,0,0,0.4);
 		z-index: 2;
 	}
+
+	.modal {
+		display: contents;
+	}
+
+	.modal > :global(*) {
+		z-index: 2;
+	}
 </style>

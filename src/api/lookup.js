@@ -11,8 +11,6 @@ const dev = NODE_ENV === 'development';
 // would generate lots of API requests. We don't want to blow
 // the rate limit, so in development we cache results locally
 const use_api = async city => {
-	console.log('using API');
-
 	const query = `city_id=${city.id}&key=${key}`;
 
 	const [current, forecast] = await Promise.all([
@@ -34,7 +32,6 @@ const use_cache = async city => {
 
 		// only use data younger than one hour
 		if (Date.now() - data.timestamp < 60 * 60 * 1000) {
-			console.log('using cache');
 			return data;
 		}
 	}

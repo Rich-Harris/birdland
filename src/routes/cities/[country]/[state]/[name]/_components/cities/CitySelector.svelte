@@ -3,8 +3,8 @@
 	import ExpandToggleIcon from '../ExpandToggleIcon.svelte';
 	import SearchBox from '../../../../../../../components/SearchBox.svelte';
 	import CityLink from '../../../../../../../components/CityLink.svelte';
+	import Modal from '../../../../../../../components/Modal.svelte';
 	import ToggleForm from './ToggleForm.svelte';
-	import Modal from './Modal.svelte';
 	import { stores } from '@sapper/app';
 	import { is_home, is_bookmarked, set_home, add_bookmark, remove_bookmark } from './utils.js';
 
@@ -85,6 +85,7 @@
 				let:value
 			>
 				<button
+					class="large"
 					style="background-image: url(icons/home-{value ? 'fill' : 'outline'}.svg)"
 					type="submit"
 				>{value ? 'remove' : 'add'} as home</button>
@@ -99,19 +100,20 @@
 				let:value
 			>
 				<button
+					class="large"
 					style="background-image: url(icons/bookmark-{value ? 'fill' : 'outline'}.svg)"
 					type="submit"
 				>{value ? 'unbookmark' : 'bookmark'}</button>
 			</ToggleForm>
 
-			<a
-				href="my-cities"
+			<button
+				class="small"
 				class:expanded={show_cities}
-				on:click={toggle_cities}
+				on:click={() => show_cities = !show_cities}
 			>
 				<ExpandToggleIcon expanded={show_cities}/>
 				<span class="offscreen">{show_cities ? 'hide' : 'show'} my cities</span>
-			</a>
+			</button>
 		</div>
 	{:else}
 		<p><a href="login">log in</a> to save cities and preferences</p>
@@ -137,7 +139,6 @@
 	.modal-contents {
 		position: absolute;
 		width: 100%;
-		z-index: 2;
 	}
 
 	ul {
@@ -162,7 +163,7 @@
 		color: var(--gray);
 		display: grid;
 		padding: 0 0.5rem;
-		grid-template-columns: 1fr 1fr 1.4rem;
+		grid-template-columns: 1fr 1fr 1.2rem;
 		grid-gap: 0.5rem;
 	}
 
@@ -170,14 +171,18 @@
 		color: inherit;
 		border: none;
 		background: 0 50% no-repeat;
-		padding: 0.5rem 0.5rem 0.5rem 1.4rem;
 		background-size: 1.2rem 1.2rem;
 	}
 
-	.controls a {
+	.controls button.large {
+		padding: 0.5rem 0.5rem 0.5rem 1.4rem;
+	}
+
+	.controls button.small {
 		display: block;
 		width: 100%;
 		height: 100%;
+		padding: 0;
 	}
 
 	.controls .offscreen {
@@ -192,7 +197,7 @@
 			grid-template-columns: 1fr 1fr;
 		}
 
-		.controls a {
+		.controls button.small {
 			display: none;
 		}
 	}

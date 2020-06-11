@@ -17,7 +17,11 @@ const get_document = async userid => {
 
 export async function get(userid) {
 	const document = await get_document(userid);
-	return document ? document.data : DEFAULTS;
+	if (!document) return DEFAULTS;
+
+	return {
+		celsius: document.data.celsius === 'true'
+	};
 }
 
 export async function add(userid, settings) {

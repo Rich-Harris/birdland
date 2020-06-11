@@ -47,7 +47,6 @@
 		font-weight: 200;
 		border: none;
 		border-radius: var(--corner);
-		z-index: 3;
 		background: url(/icons/search.svg) 100% 50% no-repeat;
 		background-size: 1em 1em;
 	}
