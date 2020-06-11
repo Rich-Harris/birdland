@@ -21,11 +21,8 @@
 			dispatch(value ? 'disengage' : 'engage');
 
 			await fetch(action, {
-				method,
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(data)
+				method: 'POST',
+				body: new FormData(e.target)
 			});
 
 			const res = await fetch('user.json');
@@ -43,6 +40,13 @@
 	};
 </script>
 
-<form disabled={saving} {method} {action} on:submit|preventDefault={handle_submit}>
+<form disabled={saving} {action} method="post" on:submit|preventDefault={handle_submit}>
+	<div hidden>
+		<input name="__method" value={method}>
+		<input name="name" value={data.name}>
+		<input name="qualifier" value={data.qualifier}>
+		<input name="slug" value={data.slug}>
+	</div>
+
 	<slot {value}></slot>
 </form>

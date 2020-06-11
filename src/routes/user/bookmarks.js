@@ -3,20 +3,17 @@ import * as home from '../../api/home.js';
 import * as bookmarks from '../../api/bookmarks.js';
 
 export const post = authed(async (req, res, userdata) => {
-	const city = req.body;
+	const { __method, ...city } = req.body;
 
-	await bookmarks.add(userdata.sub, city);
+	if (__method === 'post') {
+		await bookmarks.add(userdata.sub, city);
+		res.redirect(302, `/cities/${city.slug}`);
+	} else if (__method === 'delete') {
+		await Promise.all([
+			home.remove(userdata.sub, city),
+			bookmarks.remove(userdata.sub, city)
+		]);
 
-	res.redirect(302, `/cities/${city.slug}`);
-});
-
-export const del = authed(async (req, res, userdata) => {
-	const city = req.body;
-
-	await Promise.all([
-		home.remove(userdata.sub, city),
-		bookmarks.remove(userdata.sub, city)
-	]);
-
-	res.redirect(302, '/');
+		res.redirect(302, '/');
+	}
 });

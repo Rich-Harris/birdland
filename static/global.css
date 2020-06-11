@@ -41,6 +41,10 @@ ul {
 	margin: 0;
 }
 
+:disabled {
+	color: inherit;
+}
+
 :focus {
 	z-index: 2;
 }

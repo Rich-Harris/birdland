@@ -24,6 +24,7 @@ app.use(
 	// compression({ threshold: 0 }),
 
 	bodyParser.json(),
+	bodyParser.urlencoded({ extended: false }),
 
 	sirv('static', { dev }),
 
