@@ -1,4 +1,10 @@
 import fs from 'fs';
+import path from 'path';
+
+console.log('cwd', process.cwd());
+console.log('files', fs.readdirSync(__dirname));
+console.log('__dirname', __dirname);
+console.log('files', fs.readdirSync('.'));
 
 // read in data from https://www.weatherbit.io/api/meta
 
