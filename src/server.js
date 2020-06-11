@@ -46,6 +46,7 @@ app.use(
 				: null;
 
 			return {
+				ip: req.headers['x-forwarded-for'] || '',
 				user
 			};
 		}
