@@ -4,7 +4,7 @@ const get_documents = async userid => {
 	const { data: documents } = await client.query(
 		q.Map(
 			q.Paginate(
-				q.Match(q.Index('userid'), userid)
+				q.Match(q.Index('bookmarks_by_userid'), userid)
 			),
 			q.Lambda('x', q.Get(q.Var('x')))
 		)
