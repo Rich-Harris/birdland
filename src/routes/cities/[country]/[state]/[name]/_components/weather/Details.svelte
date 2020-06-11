@@ -1,5 +1,4 @@
 <script>
-	import { slide } from 'svelte/transition';
 	export let day;
 
 	const pad = n => n < 10 ? `0${n}` : n;
@@ -18,12 +17,11 @@
 </script>
 
 <div
-	id="{day.valid_date}-contents"
+	id="{day.valid_date}-details"
 	class="details"
-	aria-labelledby="{day.valid_date}-button"
-	transition:slide={{duration:200}}
+	aria-labelledby="{day.valid_date}-summary"
 >
-	<h3>{day.weather.description}</h3>
+	<h3>{day.weather.description.toLowerCase()}</h3>
 
 	<div class="grid">
 		<span style="background-image: url(icons/sunrise.svg)">
@@ -50,24 +48,28 @@
 
 <style>
 	.details {
-		background-color: #f4f4f4;
-		padding: 1em;
+		background-color: var(--lighter-gray);
+		padding: 0 0.5rem 1rem 0.5rem;
 	}
 
 	.grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		grid-gap: 0.5em;
+		grid-gap: 0.5rem;
 	}
 
 	.grid > span {
 		background: 0 50% no-repeat;
-		padding: 0 0 0 2em;
-		background-size: 1.5em 1.5em;
+		padding: 0 0 0 2rem;
+		background-size: 1.5rem 1.5rem;
 	}
 
 	.large-screen {
 		display: none;
+	}
+
+	h3 {
+		font-size: 1.6rem;
 	}
 
 	@media (min-width: 640px) {

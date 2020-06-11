@@ -1,10 +1,13 @@
 <script context="module">
-	export async function preload({ params }) {
+	export async function preload({ params, query }) {
 		const { country, state, name } = params;
 		const res = await this.fetch(`cities/${country}/${state}/${name}.json`);
 
 		if (res.ok) {
-			return await res.json();
+			const { city, current, forecast } = await res.json();
+			const { selected = '' } = query;
+
+			return { city, current, forecast, selected };
 		} else {
 			this.error(res.status, await res.text());
 		}
@@ -18,12 +21,13 @@
 	import Summary from './_components/weather/Summary.svelte';
 	import Details from './_components/weather/Details.svelte';
 	import * as yootils from 'yootils';
+	import { mainclick } from '../../../../../utils/mainclick.js';
 
 	export let city;
 	export let current;
 	export let forecast;
+	export let selected;
 
-	let selected;
 	let show_cities = false;
 
 	$: scale = yootils.linearScale([
@@ -46,31 +50,48 @@
 		<Today {current}/>
 
 		{#each forecast as day}
-			<button
-				id="{day.valid_date}-button"
+			<a
+				class="summary"
+				href="cities/{city.slug}?selected={day.valid_date}"
+				id="{day.valid_date}-summary"
 				disabled={!process.browser}
-				aria-expanded={selected === day}
-				aria-controls="{day.valid_date}-contents"
-				on:click="{() => selected = (selected === day ? null : day)}"
+				aria-expanded={selected === day.valid_date}
+				aria-controls="{day.valid_date}-details"
+				use:mainclick={() => selected = (selected === day.valid_date ? null : day.valid_date)}
 			>
-				<Summary {day} expanded={selected === day} {scale}/>
-			</button>
+				<Summary {day} expanded={selected === day.valid_date} {scale}/>
+			</a>
 
-			{#if selected === day}
+			{#if selected === day.valid_date}
 				<Details {day}/>
 			{/if}
 		{/each}
 	</div>
 </main>
 
+<div hidden>
+	<img alt="Sunrise icon" src="icons/sunrise.svg">
+	<img alt="Sunset icon" src="icons/sunset.svg">
+	<img alt="Rain icon" src="icons/rain.svg">
+	<img alt="Wind icon" src="icons/wind.svg">
+	<img alt="Humidity icon" src="icons/humidity.svg">
+</div>
+
 <style>
-	button {
+	.summary {
 		display: block;
 		width: 100%;
 		background: none;
 		border: none;
 		border-top: 1px solid var(--light-gray);
 		padding: 0;
+		font-size: 14px;
+		text-decoration: none;
+		line-height: 1;
+	}
+
+	.summary:not([aria-expanded="false"]) {
+		background-color: var(--lighter-gray);
 	}
 
 	@media (min-width: 720px) {
