@@ -4,11 +4,11 @@ import { get as get_bookmarks } from './bookmarks.js';
 export async function get(userdata) {
 	if (!userdata) return null;
 
-	const { name, picture, email } = userdata;
+	const { name, picture, sub: userid } = userdata;
 
 	const [home, bookmarks] = await Promise.all([
-		get_home(email),
-		get_bookmarks(email)
+		get_home(userid),
+		get_bookmarks(userid)
 	]);
 
 	const user = {

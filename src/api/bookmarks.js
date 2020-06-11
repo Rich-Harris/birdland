@@ -1,10 +1,10 @@
 import { q, client } from './db.js';
 
-const get_documents = async email => {
+const get_documents = async userid => {
 	const { data: documents } = await client.query(
 		q.Map(
 			q.Paginate(
-				q.Match(q.Index('bookmarks_by_email'), email)
+				q.Match(q.Index('userid'), userid)
 			),
 			q.Lambda('x', q.Get(q.Var('x')))
 		)
@@ -13,18 +13,18 @@ const get_documents = async email => {
 	return documents;
 };
 
-export async function get(email) {
-	const documents = await get_documents(email);
+export async function get(userid) {
+	const documents = await get_documents(userid);
 	return documents.map(d => d.data).sort((a, b) => {
 		return a.name < b.name ? -1 : 1;
 	});
 }
 
-export async function add(email, city) {
-	const existing_documents = await get_documents(email);
+export async function add(userid, city) {
+	const existing_documents = await get_documents(userid);
 
 	if (!existing_documents.find(d => d.data.slug === city.slug)) {
-		const data = { email, ...city };
+		const data = { userid, ...city };
 
 		await client.query(
 			q.Create(q.Collection('bookmarks'), { data })
@@ -32,8 +32,8 @@ export async function add(email, city) {
 	}
 }
 
-export async function remove(email, city) {
-	const existing_documents = await get_documents(email);
+export async function remove(userid, city) {
+	const existing_documents = await get_documents(userid);
 
 	const match = existing_documents.find(d => d.data.slug === city.slug);
 

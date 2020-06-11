@@ -1,9 +1,9 @@
 import { q, client } from './db.js';
 
-const get_document = async email => {
+const get_document = async userid => {
 	try {
 		return await client.query(
-			q.Get(q.Match(q.Index('home_by_email'), email))
+			q.Get(q.Match(q.Index('home_by_userid'), userid))
 		);
 	} catch (e) {
 		if (e.name === 'NotFound') return null;
@@ -11,14 +11,14 @@ const get_document = async email => {
 	}
 };
 
-export async function get(email) {
-	const document = await get_document(email);
+export async function get(userid) {
+	const document = await get_document(userid);
 	return document && document.data;
 }
 
-export async function add(email, city) {
-	const existing_document = await get_document(email);
-	const data = { email, ...city };
+export async function add(userid, city) {
+	const existing_document = await get_document(userid);
+	const data = { userid, ...city };
 
 	if (existing_document) {
 		await client.query(
@@ -31,8 +31,8 @@ export async function add(email, city) {
 	}
 }
 
-export async function remove(email, city) {
-	const document = await get_document(email);
+export async function remove(userid, city) {
+	const document = await get_document(userid);
 
 	if (document && document.data.slug === city.slug) {
 		await client.query(
