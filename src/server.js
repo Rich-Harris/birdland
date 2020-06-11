@@ -26,6 +26,11 @@ app.use(
 	// TODO is this necessary?
 	// compression({ threshold: 0 }),
 
+	(req, res, next) => {
+		console.log({ VERCEL_URL, base });
+		next();
+	},
+
 	bodyParser.json(),
 
 	sirv('static', { dev }),
