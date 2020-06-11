@@ -18,18 +18,11 @@ const {
 const dev = NODE_ENV === 'development';
 const base = VERCEL_URL ? `https://${VERCEL_URL}` : `http://localhost:${PORT}`;
 
-console.log({ VERCEL_URL, base });
-
 const app = express();
 
 app.use(
 	// TODO is this necessary?
 	// compression({ threshold: 0 }),
-
-	(req, res, next) => {
-		console.log({ VERCEL_URL, base });
-		next();
-	},
 
 	bodyParser.json(),
 
