@@ -10,13 +10,17 @@
 	$: disabled = !$session.user;
 
 	const save = async () => {
-		const body = new FormData(form);
-
-		console.log(body, body.get('celsius'));
+		const data = {};
+		new FormData(form).forEach((value, key) => {
+			data[key] = value;
+		});
 
 		await fetch('user/settings', {
 			method: 'post',
-			body
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
 		});
 
 		// refresh user to confirm settings
@@ -39,8 +43,6 @@
 	{/if}
 
 	<form bind:this={form} method="post" action="user/settings" class:disabled on:submit|preventDefault={save}>
-		<input name="foo" value="bar">
-
 		<label>
 			<input
 				{disabled}
@@ -54,9 +56,9 @@
 			show temperatures in degrees celsius
 		</label>
 
-		<!-- <noscript> -->
+		<noscript>
 			<button type="submit">save</button>
-		<!-- </noscript> -->
+		</noscript>
 	</form>
 </main>
 
@@ -70,5 +72,16 @@
 	form.disabled {
 		filter: grayscale(1);
 		opacity: 0.5;
+	}
+
+	button {
+		display: block;
+		background: var(--brand);
+		border: none;
+		border-radius: var(--corner);
+		padding: 0.5em 1em;
+		font-size: inherit;
+		font-family: inherit;
+		margin: 1em 0;
 	}
 </style>

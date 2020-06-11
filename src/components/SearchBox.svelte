@@ -34,7 +34,7 @@
 	form {
 		padding: 0.5rem;
 		background: white;
-		border-radius: 0.2rem 0.2rem 0 0;
+		border-radius: var(--corner) var(--corner) 0 0;
 	}
 
 	input {
@@ -46,7 +46,7 @@
 		text-transform: uppercase;
 		font-weight: 200;
 		border: none;
-		border-radius: 0.2rem;
+		border-radius: var(--corner);
 		z-index: 3;
 		background: url(/icons/search.svg) 100% 50% no-repeat;
 		background-size: 1em 1em;

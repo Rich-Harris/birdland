@@ -143,7 +143,7 @@
 	ul {
 		background-color: white;
 		text-align: left;
-		border-radius: 0 0 0.2rem 0.2rem;
+		border-radius: 0 0 var(--corner) var(--corner);
 		max-height: 50vh;
 		overflow-y: scroll;
 		top: -2px;

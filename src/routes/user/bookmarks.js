@@ -3,9 +3,6 @@ import * as home from '../../api/home.js';
 import * as bookmarks from '../../api/bookmarks.js';
 
 export const post = authed(async (req, res, userdata) => {
-	console.log('req.headers["content-type"]', req.headers["content-type"]);
-	console.log('req.body', req.body);
-
 	const { __method, ...city } = req.body;
 
 	if (__method === 'post') {

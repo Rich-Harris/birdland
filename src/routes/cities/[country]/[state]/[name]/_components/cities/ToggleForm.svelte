@@ -18,7 +18,13 @@
 
 			await fetch(action, {
 				method: 'post',
-				body: new FormData(e.target)
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					__method: method,
+					...data
+				})
 			});
 
 			const res = await fetch('user.json');
