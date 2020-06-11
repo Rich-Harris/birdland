@@ -3,7 +3,7 @@ import sirv from 'sirv';
 import express from 'express';
 import { auth } from 'express-openid-connect';
 import bodyParser from 'body-parser';
-// import compression from 'compression';
+import formidable from 'express-formidable';
 import * as sapper from '@sapper/server';
 import { get as get_user } from './api/user.js';
 
@@ -20,11 +20,9 @@ const dev = NODE_ENV === 'development';
 const app = express();
 
 app.use(
-	// TODO is this necessary?
-	// compression({ threshold: 0 }),
-
 	bodyParser.json(),
 	bodyParser.urlencoded({ extended: false }),
+	// formidable(),
 
 	sirv('static', { dev }),
 

@@ -6,11 +6,15 @@
 <nav>
 	<a class="logo" href=".">Birdland</a>
 
-	{#if $session.user}
-		<a href="logout">logout</a>
-	{:else}
-		<a href="login">login</a>
-	{/if}
+	<div>
+		{#if $session.user}
+			<span class="user">{$session.user.name}</span>
+		{:else}
+			<a href="login">log in</a>
+		{/if}
+
+		<a href="settings">settings</a>
+	</div>
 </nav>
 
 <style>
@@ -25,6 +29,27 @@
 	a {
 		text-decoration: none;
 		padding: 0.5em 0;
+	}
+
+	div {
+		display: flex;
+		align-items: center;
+		flex: 1 1 1;
+		min-width: 0;
+	}
+
+	.user {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	[href="settings"] {
+		display: block;
+		width: 1.4rem;
+		height: 100%;
+		text-indent: -9999px;
+		margin: 0 0 0 0.5rem;
+		background: url(/icons/settings.svg) 50% 50% no-repeat;
 	}
 
 	.logo {

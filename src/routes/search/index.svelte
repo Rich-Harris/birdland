@@ -26,6 +26,10 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Search • Birdland</title>
+</svelte:head>
+
 <main>
 	<div class="search-container">
 		<SearchBox {q} on:results={handle_results}/>
@@ -50,7 +54,7 @@
 	main {
 		max-width: 640px;
 		margin: 0 auto;
-		padding: 4rem 0.5rem;
+		padding: 2rem 0.5rem;
 	}
 
 	.results {

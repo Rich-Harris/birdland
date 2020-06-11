@@ -9,19 +9,15 @@
 	const { session } = stores();
 	const dispatch = createEventDispatcher();
 
-	let saving;
-
 	$: method = value ? 'delete' : 'post';
 
 	const handle_submit = async e => {
-		saving = true;
-
 		try {
 			// enable optimistic UI
 			dispatch(value ? 'disengage' : 'engage');
 
 			await fetch(action, {
-				method: 'POST',
+				method: 'post',
 				body: new FormData(e.target)
 			});
 
@@ -35,12 +31,10 @@
 			// we're probably offline
 			// TODO handle the error
 		}
-
-		saving = false;
 	};
 </script>
 
-<form disabled={saving} {action} method="post" on:submit|preventDefault={handle_submit}>
+<form {action} method="post" on:submit|preventDefault={handle_submit}>
 	<div hidden>
 		<input name="__method" value={method}>
 		<input name="name" value={data.name}>
