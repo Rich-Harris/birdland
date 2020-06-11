@@ -12,11 +12,10 @@ const {
 	NODE_ENV,
 	AUTH0_CLIENT_ID,
 	AUTH0_DOMAIN,
-	VERCEL_URL
+	BASE_URL
 } = process.env;
 
 const dev = NODE_ENV === 'development';
-const base = VERCEL_URL ? `https://${VERCEL_URL}` : `http://localhost:${PORT}`;
 
 const app = express();
 
@@ -31,7 +30,7 @@ app.use(
 	auth({
 		required: false,
 		auth0Logout: true,
-		baseURL: base,
+		baseURL: BASE_URL,
 		issuerBaseURL: `https://${AUTH0_DOMAIN}`,
 		clientID: AUTH0_CLIENT_ID,
 		appSession: {
