@@ -3,7 +3,7 @@ import fs from 'fs';
 // read in data from https://www.weatherbit.io/api/meta
 
 const countries = JSON.parse(
-	fs.readFileSync(`${__dirname}/data/countries.json`, 'utf-8')
+	fs.readFileSync('data/countries.json', 'utf-8')
 );
 
 export const country_lookup = new Map();
@@ -12,7 +12,7 @@ countries.forEach(d => {
 });
 
 const states = JSON.parse(
-	fs.readFileSync(`${__dirname}/data/states.json`, 'utf-8')
+	fs.readFileSync('data/states.json', 'utf-8')
 );
 
 export const state_lookup = new Map();
@@ -33,7 +33,7 @@ export const slugify = str => str
 	.replace(/-$/, '')
 	.replace(/-{2,}/g, '-');
 
-export const cities = fs.readFileSync(`${__dirname}/data/cities.tsv`, 'utf-8')
+export const cities = fs.readFileSync('data/cities.tsv', 'utf-8')
 	.split(/\r?\n/g)
 	.slice(1)
 	.filter(Boolean)
