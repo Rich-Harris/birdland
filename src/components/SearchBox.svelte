@@ -25,6 +25,7 @@
 		name="q"
 		spellcheck="false"
 		pattern="..+"
+		title="Two or more letters"
 		bind:value={q}
 		on:click={e => e.target.select()}
 	>

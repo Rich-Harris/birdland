@@ -57,15 +57,13 @@
 			<div class="modal-contents" bind:this={modal_contents} on:keydown={handle_keydown}>
 				<SearchBox {q} on:results={handle_results}/>
 
-				{#if results.length > 0}
-					<ul>
-						{#each results as result}
-							<li><CityLink city={result}/></li>
-						{/each}
-					</ul>
-				{:else}
-					<p>No results!</p>
-				{/if}
+				<ul>
+					{#each results as result}
+						<li><CityLink city={result}/></li>
+					{:else}
+						<li>No results!</li>
+					{/each}
+				</ul>
 			</div>
 		</Modal>
 	{/if}
