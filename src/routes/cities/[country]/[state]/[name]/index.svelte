@@ -20,6 +20,7 @@
 	import Today from './_components/weather/Today.svelte';
 	import Summary from './_components/weather/Summary.svelte';
 	import Details from './_components/weather/Details.svelte';
+	import Attribution from './_components/Attribution.svelte';
 	import * as yootils from 'yootils';
 	import { mainclick } from '@app/utils/mainclick';
 
@@ -44,6 +45,7 @@
 	<div class="cities">
 		<CitySelector {city} bind:show_cities/>
 		<CityList visible={show_cities}/>
+		<Attribution />
 	</div>
 
 	<div class="weather">
