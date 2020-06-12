@@ -23,11 +23,13 @@
 		});
 
 		// refresh user to confirm settings
-		const res = await fetch('user.json');
-		const user = await res.json();
-
 		if (token === current_token) {
-			$session.user = user;
+			const res = await fetch('user.json');
+			const user = await res.json();
+
+			if (token === current_token) {
+				$session.user = user;
+			}
 		}
 	};
 </script>
