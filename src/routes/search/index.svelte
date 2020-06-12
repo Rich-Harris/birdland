@@ -14,8 +14,8 @@
 </script>
 
 <script>
-	import SearchBox from '../../components/SearchBox.svelte';
-	import CityLink from '../../components/CityLink.svelte';
+	import SearchBox from '@components/SearchBox.svelte';
+	import CityLink from '@components/CityLink.svelte';
 
 	export let q;
 	export let results;

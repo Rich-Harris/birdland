@@ -2,8 +2,8 @@
 	import { setContext } from 'svelte';
 	import { derived } from 'svelte/store';
 	import { stores } from '@sapper/app';
-	import Modal from '../components/Modal.svelte';
-	import Settings from '../components/Settings.svelte';
+	import Modal from '@components/Modal.svelte';
+	import Settings from '@components/Settings.svelte';
 	import { mainclick } from '@utils/mainclick';
 
 	const { session } = stores();
