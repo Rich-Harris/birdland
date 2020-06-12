@@ -8,6 +8,22 @@
 
 	const { session } = stores();
 
+	$: if ($session.user) {
+		let { theme } = $session.user.settings;
+
+		try {
+			localStorage.theme = theme;
+
+			if (!theme) {
+				theme = window.matchMedia('(prefers-color-scheme: dark)').matches
+					? 'dark'
+					: 'light';
+			}
+
+			document.documentElement.dataset.theme = theme;
+		} catch {}
+	}
+
 	let show_settings = false;
 
 	const temp = derived(session, $session => {
@@ -50,7 +66,7 @@
 
 <style>
 	nav {
-		border-bottom: 1px solid #222;
+		border-bottom: 1px solid var(--gray);
 		font-weight: 300;
 		padding: 0 0.5em;
 		display: flex;
@@ -97,7 +113,7 @@
 		width: calc(100vw - 2rem);
 		max-width: 400px;
 		max-height: calc(100vh - 5rem);
-		background: white;
+		background: var(--background);
 		border-radius: var(--corner);
 		padding: 0.5rem;
 	}

@@ -140,7 +140,7 @@
 	}
 
 	ul {
-		background-color: white;
+		background-color: var(--background);
 		text-align: left;
 		border-radius: 0 0 var(--corner) var(--corner);
 		max-height: 50vh;

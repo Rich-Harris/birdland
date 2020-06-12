@@ -64,6 +64,46 @@
 			</label>
 		</fieldset>
 
+		<fieldset>
+			<legend>Theme</legend>
+
+			<label>
+				<input
+					name="theme"
+					type="radio"
+					bind:group={$session.user.settings.theme}
+					value="light"
+					on:change={save}
+				>
+
+				light mode
+			</label>
+
+			<label>
+				<input
+					name="theme"
+					type="radio"
+					bind:group={$session.user.settings.theme}
+					value="dark"
+					on:change={save}
+				>
+
+				dark mode
+			</label>
+
+			<label>
+				<input
+					name="theme"
+					type="radio"
+					bind:group={$session.user.settings.theme}
+					value=""
+					on:change={save}
+				>
+
+				use system defaults
+			</label>
+		</fieldset>
+
 		<noscript>
 			<button type="submit">save</button>
 		</noscript>
@@ -76,6 +116,7 @@
 
 <style>
 	fieldset {
+		margin: 1em 0;
 		padding: 0;
 		border: 0;
 	}

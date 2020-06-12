@@ -4,6 +4,7 @@ html * {
 }
 
 body {
+	--background: white;
 	--brand: hsl(270, 100%, 85%);
 	--black: #222;
 	--gray: #888;
@@ -21,7 +22,7 @@ body {
 }
 
 #sapper {
-	background: white;
+	background: var(--background);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -60,4 +61,14 @@ ul {
 	body {
 		font-size: 16px;
 	}
+}
+
+
+/* dark mode */
+html[data-theme="dark"] {
+	filter: invert(1) hue-rotate(180deg);
+}
+
+html[data-theme="dark"] body {
+	--background: #ddd;
 }

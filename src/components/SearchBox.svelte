@@ -34,7 +34,7 @@
 <style>
 	form {
 		padding: 0.5rem;
-		background: white;
+		background: var(--background);
 		border-radius: var(--corner) var(--corner) 0 0;
 	}
 
