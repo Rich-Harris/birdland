@@ -2,7 +2,7 @@
 	import { stores } from '@sapper/app';
 	import { slide } from 'svelte/transition';
 	import ToggleForm from './ToggleForm.svelte';
-	import CityLink from '@app/components/CityLink.svelte';
+	import CityLink from '@api/components/CityLink.svelte';
 	import { is_home, is_bookmarked, set_home, add_bookmark, remove_bookmark } from './utils.js';
 
 	const { session } = stores();

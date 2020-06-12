@@ -1,5 +1,5 @@
 import * as httpie from 'httpie';
-import { closest } from '@app/backend/closest.js';
+import { closest } from '@api/backend/closest.js';
 
 export async function get(req, res) {
 	const ip = req.headers['x-forwarded-for'] || '';

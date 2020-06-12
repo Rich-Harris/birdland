@@ -1,4 +1,4 @@
-import { search } from '@app/backend/search.js';
+import { search } from '@api/backend/search.js';
 
 export async function get(req, res) {
 	const { q } = req.query;
