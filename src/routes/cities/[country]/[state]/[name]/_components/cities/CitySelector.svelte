@@ -1,9 +1,9 @@
 <script>
 	import * as yootils from 'yootils';
 	import ExpandToggleIcon from '../ExpandToggleIcon.svelte';
-	import SearchBox from '@components/SearchBox.svelte';
-	import CityLink from '@components/CityLink.svelte';
-	import Modal from '@components/Modal.svelte';
+	import SearchBox from '@app/components/SearchBox.svelte';
+	import CityLink from '@app/components/CityLink.svelte';
+	import Modal from '@app/components/Modal.svelte';
 	import ToggleForm from './ToggleForm.svelte';
 	import { stores } from '@sapper/app';
 	import { is_home, is_bookmarked, set_home, add_bookmark, remove_bookmark } from './utils.js';

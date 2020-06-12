@@ -4,7 +4,7 @@ import express from 'express';
 import { auth } from 'express-openid-connect';
 import bodyParser from 'body-parser';
 import * as sapper from '@sapper/server';
-import { get as get_user } from '@api/user.js';
+import { get as get_user } from '@app/backend/user.js';
 
 const {
 	PORT,
