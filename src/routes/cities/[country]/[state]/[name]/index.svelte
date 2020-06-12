@@ -21,7 +21,7 @@
 	import Summary from './_components/weather/Summary.svelte';
 	import Details from './_components/weather/Details.svelte';
 	import * as yootils from 'yootils';
-	import { mainclick } from '../../../../../utils/mainclick.js';
+	import { mainclick } from '@utils/mainclick';
 
 	export let city;
 	export let current;

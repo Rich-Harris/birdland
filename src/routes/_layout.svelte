@@ -4,7 +4,7 @@
 	import { stores } from '@sapper/app';
 	import Modal from '../components/Modal.svelte';
 	import Settings from '../components/Settings.svelte';
-	import { mainclick } from '../utils/mainclick.js';
+	import { mainclick } from '@utils/mainclick';
 
 	const { session } = stores();
 
