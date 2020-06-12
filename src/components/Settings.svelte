@@ -4,12 +4,10 @@
 	const { session } = stores();
 
 	let form;
-	let saving = false;
-
-	$: disabled = !$session.user || saving;
+	let token;
 
 	const save = async () => {
-		saving = true;
+		const current_token = token = {};
 
 		const data = {};
 		new FormData(form).forEach((value, key) => {
@@ -26,26 +24,43 @@
 
 		// refresh user to confirm settings
 		const res = await fetch('user.json');
-		$session.user = await res.json();
+		const user = await res.json();
 
-		saving = false;
+		if (token === current_token) {
+			$session.user = user;
+		}
 	};
 </script>
 
 {#if $session.user}
-	<form bind:this={form} method="post" action="user/settings" class:disabled on:submit|preventDefault={save}>
-		<label>
-			<input
-				{disabled}
-				name="celsius"
-				type="checkbox"
-				bind:checked={$session.user.settings.celsius}
-				value="true"
-				on:change={save}
-			>
+	<form bind:this={form} method="post" action="user/settings" on:submit|preventDefault={save}>
+		<fieldset>
+			<legend>Temperature units</legend>
 
-			show temperatures in degrees celsius
-		</label>
+			<label>
+				<input
+					name="celsius"
+					type="radio"
+					bind:group={$session.user.settings.celsius}
+					value={true}
+					on:change={save}
+				>
+
+				celsius
+			</label>
+
+			<label>
+				<input
+					name="celsius"
+					type="radio"
+					bind:group={$session.user.settings.celsius}
+					value={false}
+					on:change={save}
+				>
+
+				fahrenheit
+			</label>
+		</fieldset>
 
 		<noscript>
 			<button type="submit">save</button>
@@ -58,9 +73,20 @@
 {/if}
 
 <style>
-	form.disabled {
-		/* filter: grayscale(1);
-		opacity: 0.5; */
+	fieldset {
+		padding: 0;
+		border: 0;
+	}
+
+	legend {
+		border-top: 1px solid var(--light-gray);
+		display: block;
+		width: 100%;
+		padding: 0.2rem 0;
+	}
+
+	label {
+		display: block;
 	}
 
 	button {
