@@ -1,5 +1,6 @@
 __sapper__
 cypress
 node_modules
-!src/node_modules/**
+!src/node_modules
+!src/node_modules/@app
 src/node_modules/@sapper
