@@ -88,6 +88,7 @@
 		font-size: 14px;
 		text-decoration: none;
 		line-height: 1;
+		-webkit-tap-highlight-color: transparent;
 	}
 
 	.summary:not([aria-expanded="false"]) {
