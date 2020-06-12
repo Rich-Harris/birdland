@@ -4,10 +4,10 @@
 	const { session } = stores();
 
 	let form;
-	let token;
+	let current_token;
 
 	const save = async () => {
-		const current_token = token = {};
+		const token = current_token = {};
 
 		const data = {};
 		new FormData(form).forEach((value, key) => {

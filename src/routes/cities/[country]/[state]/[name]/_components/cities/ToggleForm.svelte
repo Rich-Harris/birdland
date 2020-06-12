@@ -1,3 +1,7 @@
+<script context="module">
+	let current_token;
+</script>
+
 <script>
 	import { createEventDispatcher } from 'svelte';
 	import { stores } from '@sapper/app';
@@ -12,6 +16,8 @@
 	$: method = value ? 'delete' : 'post';
 
 	const handle_submit = async e => {
+		const token = current_token = {};
+
 		try {
 			// enable optimistic UI
 			dispatch(value ? 'disengage' : 'engage');
@@ -27,11 +33,13 @@
 				})
 			});
 
-			const res = await fetch('user.json');
-			if (res.ok) {
-				$session.user = await res.json();
-			} else {
-				// TODO handle the error
+			if (token === current_token) {
+				const res = await fetch('user.json');
+				const user = await res.json();
+
+				if (token === current_token) {
+					$session.user = user;
+				}
 			}
 		} catch (error) {
 			// we're probably offline
