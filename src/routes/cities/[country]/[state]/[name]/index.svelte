@@ -49,7 +49,7 @@
 	<div class="weather">
 		<Today {current}/>
 
-		{#each forecast as day}
+		{#each forecast as day, i}
 			<a
 				class="summary"
 				href="cities/{city.slug}?selected={day.valid_date}"
@@ -59,7 +59,7 @@
 				aria-controls="{day.valid_date}-details"
 				use:mainclick={() => selected = (selected === day.valid_date ? null : day.valid_date)}
 			>
-				<Summary {day} expanded={selected === day.valid_date} {scale}/>
+				<Summary {day} today={i === 0} expanded={selected === day.valid_date} {scale}/>
 			</a>
 
 			{#if selected === day.valid_date}

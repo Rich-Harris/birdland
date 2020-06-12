@@ -72,7 +72,7 @@
 		font-size: 1.6rem;
 	}
 
-	@media (min-width: 640px) {
+	@media (min-width: 720px) {
 		.small-screen {
 			display: none;
 		}

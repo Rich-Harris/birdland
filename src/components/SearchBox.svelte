@@ -51,4 +51,10 @@
 		background: url(/icons/search.svg) 100% 50% no-repeat;
 		background-size: 1em 1em;
 	}
+
+	@media (min-width: 720px) {
+		input {
+			font-size: 2.8rem;
+		}
+	}
 </style>

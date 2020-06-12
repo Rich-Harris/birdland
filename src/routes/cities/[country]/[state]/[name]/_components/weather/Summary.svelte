@@ -4,6 +4,7 @@
 	import { get_color } from './temperature_scale.js';
 
 	export let day;
+	export let today;
 	export let expanded;
 	export let scale;
 
@@ -19,7 +20,7 @@
 </script>
 
 <div class="summary" style="background-image: url(icons/weather/{day.weather.icon}.svg)">
-	<span>{get_day_of_week(day)}</span>
+	<span>{today ? 'Today' : get_day_of_week(day)}</span>
 	<div class="temperature-range-outer">
 		<div
 			class="temperature-range-inner"
