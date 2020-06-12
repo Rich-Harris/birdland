@@ -8,7 +8,7 @@
 	img {
 		display: block;
 		width: 100%;
-		height: 100%;
+		height: 1.4rem;
 		object-fit: contain;
 		transition: transform 0.2s;
 		will-change: transform;
