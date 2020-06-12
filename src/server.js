@@ -11,7 +11,7 @@ const {
 	NODE_ENV,
 	AUTH0_CLIENT_ID,
 	AUTH0_DOMAIN,
-	BASE_URL
+	BASE_URL = `https://${process.env.VERCEL_URL}`
 } = process.env;
 
 const dev = NODE_ENV === 'development';
